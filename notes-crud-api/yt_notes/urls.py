@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-def health_check(request):
-    return JsonResponse({"status": "ok"})
+def health(request):
+    return JsonResponse({"status": "healthy", "message": "Django is working"})
+
+def notes_test(request):
+    return JsonResponse({"notes": [], "message": "API endpoint working"})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("noteapp.urls")),
-    path('health/', health_check),
+    path('health/', health),
+    path('notes/', notes_test),
+    path('', health),  # Root path
 ]
