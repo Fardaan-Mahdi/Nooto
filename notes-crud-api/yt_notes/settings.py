@@ -14,7 +14,7 @@ from pathlib import Path
 
 PORT = os.environ.get('PORT', 8000)
 
-ALLOWED_HOSTS = ['nooto-production.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['.railway.app', 'localhost', '127.0.0.1']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
