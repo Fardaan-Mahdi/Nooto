@@ -20,7 +20,20 @@ const App = () => {
   const [searchText, setSearchText] = useState("");
   const [filterText, setFilterText] = useState("");
   const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8008';
-  console.log("Current API URL:", API_URL);
+  
+  
+  // Test API connection on app load
+  useEffect(() => {
+    console.log("Testing API connection...");
+    axios.get(`${API_URL}/notes/`)
+      .then((res) => {
+        console.log("✅ API connection successful:", res.data.length, "notes found");
+      })
+      .catch((err) => {
+        console.error("❌ API connection failed:", err.message);
+        console.error("Are you sure the backend is running at:", API_URL);
+      });
+  }, []);
   const handleFilterText = (val) => {
     setFilterText(val);
   };
