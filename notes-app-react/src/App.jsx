@@ -19,7 +19,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [filterText, setFilterText] = useState("");
-
+  const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8008';
+  console.log("Current API URL:", API_URL);
   const handleFilterText = (val) => {
     setFilterText(val);
   };
@@ -41,7 +42,7 @@ const App = () => {
     if (searchText.length === 0) {
       // Reset to all notes when search is cleared
       axios
-        .get("http://127.0.0.1:8008/notes/")
+        .get(`${API_URL}/notes/`)
         .then((res) => {
           setNotes(res.data);
         })
@@ -50,7 +51,7 @@ const App = () => {
     }
     if (searchText.length < 3) return;
     axios
-      .get(`http://127.0.0.1:8008/notes-search/?search=${searchText}`)
+      .get(`${API_URL}/notes-search/?search=${searchText}`)
       .then((res) => {
         console.log(res.data);
         setNotes(res.data);
@@ -61,7 +62,7 @@ const App = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://127.0.0.1:8008/notes/")
+      .get(`${API_URL}/notes/`)
       .then((res) => {
         // console.log(res.data);
         setNotes(res.data);
@@ -74,7 +75,7 @@ const App = () => {
 
   const addNote = (data) => {
     axios
-      .post("http://127.0.0.1:8008/notes/", data)
+      .post(`${API_URL}/notes/`, data)
       .then((res) => {
         setNotes([...notes, data]);
         toast.success("A new note has been added");
@@ -88,7 +89,7 @@ const App = () => {
 
   const updateNote = (data, slug) => {
     axios
-      .put(`http://127.0.0.1:8008/notes/${slug}/`, data)
+      .put(`${API_URL}/notes/${slug}/`, data)
       .then((res) => {
         console.log(res.data);
         toast.success("Note updated succesfully");
@@ -99,7 +100,7 @@ const App = () => {
 
   const deleteNote = (slug) => {
     axios
-      .delete(`http://127.0.0.1:8008/notes/${slug}`)
+      .delete(`${API_URL}/notes/${slug}`)
       .catch((err) => console.log(err.message));
   };
 
