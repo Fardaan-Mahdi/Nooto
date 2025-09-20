@@ -143,6 +143,29 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
+# Railway environment detection
+if 'RAILWAY_ENVIRONMENT' in os.environ:
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
